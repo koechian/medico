@@ -23,7 +23,7 @@ export default {
                     <button
                         type="button"
                         class="btn-close"
-                        @click="close"
+                        v-on:click="close()"
                         aria-label="Close modal"
                     >
                         close
@@ -33,7 +33,7 @@ export default {
                 <section class="modal-body" id="modalDescription">
                     <slot name="body">
                         <div class="body-header">
-                            <h3>Please provide the customer details</h3>
+                            <h3>Please provide patient details</h3>
                         </div>
                         <div class="body-form">
                             <input placeholder="Firstname" type="text" />
@@ -49,12 +49,7 @@ export default {
                 </section>
 
                 <footer class="modal-footer">
-                    <button
-                        type="button"
-                        class="btn-sub"
-                        @click="close"
-                        aria-label="Close modal"
-                    >
+                    <button type="button" class="btn-sub">
                         Checkin patient
                     </button>
                 </footer>
@@ -63,7 +58,7 @@ export default {
     </transition>
 </template>
 
-<style>
+<style scoped>
 .modal-backdrop {
     position: fixed;
     top: 0;

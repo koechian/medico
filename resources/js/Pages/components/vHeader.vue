@@ -5,8 +5,13 @@
             <input placeholder="Patient Search" type="search" />
         </div>
         <div>
-            <button class="add-patient">New Patient</button>
-            <NewPatient></NewPatient>
+            <button v-on:click="showModal()" class="add-patient">
+                New Patient
+            </button>
+            <NewPatient
+                v-show="isModalVisible"
+                @close="closeModal"
+            ></NewPatient>
         </div>
         <div class="user">
             <select name="" id="">
@@ -24,6 +29,19 @@ export default {
     components: {
         NewPatient,
     },
+    data() {
+        return {
+            isModalvisible: false,
+        };
+    },
+    methods: {
+        showModal() {
+            this.isModalvisible = true;
+        },
+        closeModal() {
+            this.isModalvisible = false;
+        },
+    },
 };
 </script>
 <style>
@@ -34,7 +52,7 @@ header {
     margin-top: 10px;
     transform: translateX(-50%);
     align-items: center;
-    width: 90%;
+    width: 85%;
     height: 10vh;
     display: grid;
     grid-template-columns: 1fr 2fr 0.5fr 1fr;

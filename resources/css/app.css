@@ -13,4 +13,9 @@ a {
     display: inline-block;
     text-decoration: none;
     color: blueviolet;
+    transition: ease 0.4s;
+}
+a:hover {
+    color: blueviolet;
+    transform: scale(1.02);
 }
