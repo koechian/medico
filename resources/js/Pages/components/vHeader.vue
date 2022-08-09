@@ -6,6 +6,7 @@
         </div>
         <div>
             <button class="add-patient">New Patient</button>
+            <NewPatient></NewPatient>
         </div>
         <div class="user">
             <select name="" id="">
@@ -17,11 +18,11 @@
     </header>
 </template>
 <script>
-import vSelect from "vue-select";
+import NewPatient from "./newPatient.vue";
 export default {
     name: "vHeader",
     components: {
-        vSelect,
+        NewPatient,
     },
 };
 </script>
