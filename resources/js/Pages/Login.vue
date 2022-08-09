@@ -1,7 +1,3 @@
-<script setup>
-import imagePath from "@/resources/images/login.png";
-</script>
-
 <template>
     <div class="wrapper">
         <div class="left">
@@ -34,6 +30,9 @@ import imagePath from "@/resources/images/login.png";
                         New employee?
                         <span class="links"
                             ><Link href="/register">Register</Link></span
+                        >
+                        <span class="links"
+                            ><Link href="/dashboard">Dash</Link></span
                         >
                     </p>
                 </div>
