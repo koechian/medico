@@ -7,23 +7,27 @@
             <div class="content">
                 <h2>Welcome Back</h2>
                 <h4>Please login to continue</h4>
-                <div class="forms">
-                    <label for="email"><strong>Email:</strong></label
-                    ><br /><br />
-                    <input
-                        type="email"
-                        name="email"
-                        id="email"
-                        placeholder="Enter your email"
-                    /><br /><br />
-                    <label for="password"><strong>Password:</strong></label
-                    ><br /><br />
-                    <input
-                        type="password"
-                        name="password"
-                        id="password"
-                    /><br /><br />
-                    <button>Sign In</button>
+                <div class="forms" @submit.prevent="handleLogin">
+                    <form action="#">
+                        <label for="email"><strong>Email:</strong></label
+                        ><br /><br />
+                        <input
+                            v-model="formData.email"
+                            type="email"
+                            name="email"
+                            id="email"
+                            placeholder="Enter your email"
+                        /><br /><br />
+                        <label for="password"><strong>Password:</strong></label
+                        ><br /><br />
+                        <input
+                            v-model="formData.password"
+                            type="password"
+                            name="password"
+                            id="password"
+                        /><br /><br />
+                        <button type="submit">Sign In</button>
+                    </form>
                 </div>
                 <div class="register">
                     <p>
@@ -50,16 +54,32 @@
 
 <script>
 import { Link } from "@inertiajs/inertia-vue3";
+import axios from "axios";
 export default {
     name: "Login",
     data() {
-        return {};
+        return {
+            formData: {
+                email: "",
+                password: "",
+            },
+        };
     },
     components: {
         Link,
     },
     created() {},
-    methods: {},
+    methods: {
+        handleLogin() {
+            axios.get("sanctum/csrf-cookie").then((response) => {
+                axios.post("/api/auth/login", this.formData).then((reponse) => {
+                    if (response.status == 200) {
+                        console.log("nice");
+                    }
+                });
+            });
+        },
+    },
 };
 </script>
 

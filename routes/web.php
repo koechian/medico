@@ -39,17 +39,30 @@ Route::get(
     }
 )->name( 'Login' );
 
-Route::get(
+// Route::get(
+//     '/dashboard',
+//     function () {
+//         return Inertia::render(
+//             'Dashboard',
+//             [
+//                 'title' => 'Dashboard',
+//             ]
+//         );
+//     }
+// )->name( 'dashboard' )->middleware('auth:sanctum');
+
+Route::middleware('auth:sanctum')->get(
     '/dashboard',
-    function () {
+    function() {
         return Inertia::render(
             'Dashboard',
             [
-                'title' => 'Dashboard',
+                'title'=>'Dashboard'
             ]
-        );
+            );
     }
-)->name( 'dashboard' );
+    )->name('dashboard')->middleware('auth:sanctum');
+
 Route::get(
     '/register',
     function () {
