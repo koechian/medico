@@ -50,3 +50,14 @@ Route::get(
         );
     }
 )->name( 'dashboard' );
+Route::get(
+    '/register',
+    function () {
+        return Inertia::render(
+            'Register',
+            [
+                'title' => 'Registration',
+            ]
+        );
+    }
+)->name( 'registration' );
