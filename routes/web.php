@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,17 +15,38 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+Route::get(
+    '/',
+    function () {
+        return Inertia::render(
+            'Welcome',
+            [
+                'title' => 'Welcome',
+            ]
+        );
+    }
+)->name( 'welcome' );
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get(
+    '/login',
+    function () {
+        return Inertia::render(
+            'Login',
+            [
+                'title' => 'Login',
+            ]
+        );
+    }
+)->name( 'Login' );
 
-require __DIR__.'/auth.php';
+Route::get(
+    '/dashboard',
+    function () {
+        return Inertia::render(
+            'Dashboard',
+            [
+                'title' => 'Dashboard',
+            ]
+        );
+    }
+)->name( 'dashboard' );
