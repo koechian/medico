@@ -14,11 +14,8 @@
             ></NewPatient>
         </div>
         <div class="user">
-            <select name="" id="">
-                <option disabled selected value="">Test</option>
-                <option value=""><button>Profile</button></option>
-                <option value=""><button>Logout</button></option>
-            </select>
+            <button>Profile</button>
+            <button v-on:click="logout()">Logout</button>
         </div>
     </header>
 </template>
@@ -40,6 +37,13 @@ export default {
         },
         closeModal() {
             this.isModalvisible = false;
+        },
+        logout() {
+            axios
+                .post("/api/auth/logout", {}, { withCredentials: true })
+                .then((response) => {
+                    window.location.href = "/login";
+                });
         },
     },
 };

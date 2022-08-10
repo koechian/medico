@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -107,5 +107,12 @@ return response()->json([
             ],500);
 
     }
+}
+public function logout(){
+    Session::flush();
+    Auth::logout();
+    
+    return Route('Login');
+
 }
 }

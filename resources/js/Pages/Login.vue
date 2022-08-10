@@ -7,11 +7,18 @@
             <div class="content">
                 <h2>Welcome Back</h2>
                 <h4>Please login to continue</h4>
+                <div class="error">
+                    <span id="error"> Login Failed for x and y reason </span>
+                </div>
+                <div class="loginmsg">
+                    <span id="loginmsg"> Login Successful</span>
+                </div>
                 <div class="forms" @submit.prevent="handleLogin">
                     <form action="#">
                         <label for="email"><strong>Email:</strong></label
                         ><br /><br />
                         <input
+                            class="inputs"
                             v-model="formData.email"
                             type="email"
                             name="email"
@@ -21,6 +28,7 @@
                         <label for="password"><strong>Password:</strong></label
                         ><br /><br />
                         <input
+                            class="inputs"
                             v-model="formData.password"
                             type="password"
                             name="password"
@@ -35,20 +43,12 @@
                         <span class="links"
                             ><Link href="/register">Register</Link></span
                         >
-                        <span class="links"
-                            ><Link href="/dashboard">Dash</Link></span
-                        >
                     </p>
                 </div>
             </div>
-            <div class="footer">
-                <span>2022 Ian</span>
-            </div>
+            <div class="footer"></div>
         </div>
-        <div
-            :style="{ backgroundImage: 'url(${imagePath})' }"
-            class="right"
-        ></div>
+        <div class="right"></div>
     </div>
 </template>
 
@@ -71,13 +71,36 @@ export default {
     created() {},
     methods: {
         handleLogin() {
+            var inputs = document.getElementsByClassName("inputs");
+            var error = document.getElementsByClassName("error");
+            var message = document.getElementsByClassName("loginmsg");
             axios.get("sanctum/csrf-cookie").then((response) => {
-                axios.post("/api/auth/login", this.formData).then((reponse) => {
-                    if (response.status == 200) {
-                        console.log("nice");
-                    }
-                });
+                axios
+                    .post("/api/auth/login", this.formData)
+                    .then((response) => {
+                        if (response.status == 200) {
+                            message.style.display = "flex !important";
+                            inputs[0].classList.add("success");
+                            inputs[1].classList.add("success");
+                            setTimeout(function () {
+                                console.log("heh");
+                                window.location.href = "/dashboard";
+                            }, 1000);
+                        }
+                    })
+                    .catch((err) => {
+                        if (err.response.status == 401) {
+                            error[0].style.display = "flex";
+                            inputs[0].classList.add("fail");
+                            inputs[1].classList.add("fail");
+                            document.getElementById("error").innerHTML =
+                                err.response.data.message;
+                        }
+                    });
             });
+        },
+        logout() {
+            axios.post("/api/auth/logout", {}, { withCredentials: true });
         },
     },
 };
@@ -173,5 +196,31 @@ h4 {
     width: 50vw;
     background-position: center;
     outline: green dotted 3px;
+}
+.success {
+    border: 2px solid rgb(132, 242, 132);
+}
+.fail {
+    border: 2px solid rgb(200, 33, 17);
+}
+.error,
+.loginmsg {
+    width: 70%;
+    height: 10%;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    display: none;
+    transition: ease 0.4s;
+}
+.error {
+    outline: rgba(215, 60, 60, 0.903) solid 4px;
+    background-color: rgba(255, 38, 38, 0.469);
+}
+.loginmsg {
+    outline: 24x solid rgb(1, 120, 1);
+    background-color: rgba(71, 250, 27, 0.704);
 }
 </style>
