@@ -8,6 +8,7 @@ export default {
             formData: {
                 firstName: "",
                 lastName: "",
+                gender: "",
                 current_dept: "",
             },
         };

@@ -20,6 +20,7 @@ class RequestsController extends Controller
         [
             'firstName'=>'required',
             'lastName'=>'required',
+            'gender'=>'required',
             'current_dept'=>'required',
         ]);
 
@@ -35,6 +36,7 @@ class RequestsController extends Controller
 $patient=Patients::create([
     'firstname'=>$request->firstName,
     'lastname'=>$request->lastName,
+    'gender'=>$request->gender,
     'current_dept'=>$request->current_dept,
 
 ]);

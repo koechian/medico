@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('firstname');
             $table->string('lastname');
+            $table->string('gender');
             $table->string('current_doctor')->nullable();
             $table->string('notes')->nullable();
             $table->integer('current_dept')->default('1');

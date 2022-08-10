@@ -8,7 +8,7 @@
                 <h2>Welcome Back</h2>
                 <h4>Please login to continue</h4>
                 <div class="error">
-                    <span id="error"> Login Failed for x and y reason </span>
+                    <span id="error"> </span>
                 </div>
                 <div class="loginmsg">
                     <span id="loginmsg"> Login Successful</span>
@@ -83,8 +83,7 @@ export default {
                         .then((response) => {
                             try {
                                 if (response.status == 200) {
-                                    message[0].style.display =
-                                        "flex !important";
+                                    message[0].style.display = "flex";
                                     inputs[0].classList.add("success");
                                     inputs[1].classList.add("success");
                                     setTimeout(function () {
