@@ -185,7 +185,7 @@ h2 {
     color: rgb(35, 35, 35);
 }
 h4 {
-    margin-top: -20px;
+    margin-top: 20px;
     font-size: 1.1em;
     color: rgb(118, 118, 118);
 }
@@ -204,8 +204,9 @@ h4 {
 .right {
     height: 100vh;
     width: 50vw;
+    background-image: url("./images/login.jpg");
+    background-size: contain;
     background-position: center;
-    outline: green dotted 3px;
 }
 .success {
     border: 2px solid rgb(132, 242, 132);

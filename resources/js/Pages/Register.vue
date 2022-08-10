@@ -24,6 +24,9 @@ import imagePath from "@/resources/images/login.png";
                         /><br /><br />
 
                         <select v-model="formData.dept" name="dept" id="dept">
+                            <option selected disabled value="">
+                                Select your department
+                            </option>
                             <option value="1">Reception</option>
                             <option value="6">Nursing</option>
                             <option value="3">Treatment</option>
@@ -183,7 +186,7 @@ h2 {
     color: rgb(35, 35, 35);
 }
 h4 {
-    margin-top: -20px;
+    margin-top: 20px;
     font-size: 1.1em;
     color: rgb(118, 118, 118);
 }
@@ -202,8 +205,9 @@ h4 {
 .right {
     height: 100vh;
     width: 50vw;
+    background-image: url("./images/login.jpg");
+    background-size: contain;
     background-position: center;
-    outline: green dotted 3px;
 }
 select {
     width: 73%;

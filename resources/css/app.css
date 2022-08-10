@@ -3,6 +3,8 @@
 * {
     font-family: "Raleway", sans-serif;
     font-size: 18px;
+    box-sizing: border-box;
+    margin: 0;
 }
 input {
     outline: rgba(128, 128, 128, 0.531) 2px solid;
