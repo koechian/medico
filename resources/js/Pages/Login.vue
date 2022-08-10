@@ -74,30 +74,41 @@ export default {
             var inputs = document.getElementsByClassName("inputs");
             var error = document.getElementsByClassName("error");
             var message = document.getElementsByClassName("loginmsg");
-            axios.get("sanctum/csrf-cookie").then((response) => {
-                axios
-                    .post("/api/auth/login", this.formData)
-                    .then((response) => {
-                        if (response.status == 200) {
-                            message.style.display = "flex !important";
-                            inputs[0].classList.add("success");
-                            inputs[1].classList.add("success");
-                            setTimeout(function () {
-                                console.log("heh");
-                                window.location.href = "/dashboard";
-                            }, 1000);
-                        }
-                    })
-                    .catch((err) => {
-                        if (err.response.status == 401) {
-                            error[0].style.display = "flex";
-                            inputs[0].classList.add("fail");
-                            inputs[1].classList.add("fail");
-                            document.getElementById("error").innerHTML =
-                                err.response.data.message;
-                        }
-                    });
-            });
+
+            axios
+                .get("sanctum/csrf-cookie")
+                .then((response) => {
+                    axios
+                        .post("/api/auth/login", this.formData)
+                        .then((response) => {
+                            try {
+                                if (response.status == 200) {
+                                    message[0].style.display =
+                                        "flex !important";
+                                    inputs[0].classList.add("success");
+                                    inputs[1].classList.add("success");
+                                    setTimeout(function () {
+                                        console.log("heh");
+                                        window.location.href = "/dashboard";
+                                    }, 1000);
+                                }
+                            } catch (error) {
+                                console.log(error);
+                            }
+                        })
+                        .catch((err) => {
+                            if (err.response.status == 401) {
+                                error[0].style.display = "flex";
+                                inputs[0].classList.add("fail");
+                                inputs[1].classList.add("fail");
+                                document.getElementById("error").innerHTML =
+                                    err.response.data.message;
+                            }
+                        });
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         },
         logout() {
             axios.post("/api/auth/logout", {}, { withCredentials: true });
