@@ -22,6 +22,7 @@ export default {
 </script>
 <style>
 .main {
+    z-index: 1;
     background-color: rgb(225, 225, 225);
     border-radius: 10px;
     width: 70vw;

@@ -19,7 +19,6 @@ class Patients extends Model
         'lastname',
         'current_dept',
         'current_doctor',
-        'password',
     ];
 
     /**

@@ -6,54 +6,60 @@ import imagePath from "@/resources/images/login.png";
     <div class="wrapper">
         <div class="left">
             <div class="header">
-                <span id="title"> •medico</span>
+                <span id="title"> • medico</span>
             </div>
             <div class="content">
                 <h2>Account Creation</h2>
                 <h4>Create an Account to use the platform</h4>
                 <div class="forms">
-                    <label for="name"><strong>Name:</strong></label
-                    ><br /><br />
-                    <input
-                        type="text"
-                        name="name"
-                        id="name"
-                        placeholder="Enter your full name"
-                    /><br /><br />
+                    <form action="#" @submit.prevent="createUser">
+                        <label for="name"><strong>Name:</strong></label
+                        ><br /><br />
+                        <input
+                            v-model="formData.name"
+                            type="text"
+                            name="name"
+                            id="name"
+                            placeholder="Enter your full name"
+                        /><br /><br />
 
-                    <select name="dept" id="dept">
-                        <option value="1">Reception</option>
-                        <option value="2">Nursing</option>
-                        <option value="3">Treatment</option>
-                        <option value="4">Labs</option>
-                        <option value="5">Optical</option>
-                        <option value="6">Radiology</option>
-                    </select>
-                    <br /><br />
-                    <label for="email"><strong>Email:</strong></label
-                    ><br /><br />
-                    <input
-                        type="email"
-                        name="email"
-                        id="email"
-                        placeholder="Enter your email"
-                    /><br /><br />
-                    <label for="password"><strong>Password:</strong></label
-                    ><br /><br />
-                    <input
-                        type="password"
-                        name="password"
-                        id="password"
-                    /><br /><br />
-                    <label for="confirm-password"
-                        ><strong>Confim Password:</strong></label
-                    ><br /><br />
-                    <input
-                        type="password"
-                        name="confirm-password"
-                        id="confirm-password"
-                    /><br /><br />
-                    <button>Register Account</button>
+                        <select v-model="formData.dept" name="dept" id="dept">
+                            <option value="1">Reception</option>
+                            <option value="6">Nursing</option>
+                            <option value="3">Treatment</option>
+                            <option value="4">Labs</option>
+                            <option value="5">Optical</option>
+                            <option value="2">Radiology</option>
+                        </select>
+                        <br /><br />
+                        <label for="email"><strong>Email:</strong></label
+                        ><br /><br />
+                        <input
+                            v-model="formData.email"
+                            type="email"
+                            name="email"
+                            id="email"
+                            placeholder="Enter your email"
+                        /><br /><br />
+                        <label for="password"><strong>Password:</strong></label
+                        ><br /><br />
+                        <input
+                            v-model="formData.password"
+                            type="password"
+                            name="password"
+                            id="password"
+                        /><br /><br />
+                        <label for="confirm-password"
+                            ><strong>Confim Password:</strong></label
+                        ><br /><br />
+                        <input
+                            v-model="formData.password_confirmation"
+                            type="password"
+                            name="password_confirmation"
+                            id="confirm-password"
+                        /><br /><br />
+                        <button type="submit">Register Account</button>
+                    </form>
                 </div>
                 <div class="register">
                     <p>
@@ -66,25 +72,45 @@ import imagePath from "@/resources/images/login.png";
             </div>
             <div class="footer"></div>
         </div>
-        <div
-            :style="{ backgroundImage: 'url(${imagePath})' }"
-            class="right"
-        ></div>
+        <div class="right"></div>
     </div>
 </template>
 
 <script>
 import { Link } from "@inertiajs/inertia-vue3";
+import axios from "axios";
+
 export default {
     name: "Login",
     data() {
-        return {};
+        return {
+            formData: {
+                name: "",
+                email: "",
+                password: "",
+                password_confirmation: "",
+                dept: "",
+            },
+        };
     },
     components: {
         Link,
     },
     created() {},
-    methods: {},
+    methods: {
+        createUser() {
+            axios
+                .post("/api/auth/register", this.formData)
+                .then((response) => {
+                    if (response.status == 200) {
+                        window.location.href = "/login";
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        },
+    },
 };
 </script>
 

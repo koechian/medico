@@ -9,7 +9,7 @@
                 New Patient
             </button>
             <NewPatient
-                v-show="isModalVisible"
+                v-show="isModalvisible"
                 @close="closeModal"
             ></NewPatient>
         </div>
@@ -65,6 +65,7 @@ header {
     padding: 10px;
     border-radius: 10px;
     background-color: rgba(201, 144, 255, 0.946);
+    z-index: 10;
 }
 .icon span {
     font-size: 1.2em;

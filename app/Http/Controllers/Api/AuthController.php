@@ -21,7 +21,8 @@ class AuthController extends Controller
         [
             'name'=>'required',
             'email'=>'required|email|unique:users,email',
-            'password'=>'required',
+            'password'=>'required|confirmed',
+            'password_confirmation'=>'required',
             'dept'=>'required',
         ]);
 

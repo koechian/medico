@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('firstname');
             $table->string('lastname');
-            $table->string('current_doctor');
+            $table->string('current_doctor')->nullable();
+            $table->string('notes')->nullable();
             $table->integer('current_dept')->default('1');
             $table->boolean('deleted')->default('0');
             $table->rememberToken();

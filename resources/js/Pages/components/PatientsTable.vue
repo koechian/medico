@@ -9,11 +9,13 @@
                 <th><button v-on:click="getPatients()">Refresh</button></th>
             </tr>
         </thead>
-        <tbody v-for="patient in patients">
-            <td>{{ patient.id }}</td>
-            <td>{{ patient.name }}</td>
-            <td>{{ patient.dept }}</td>
-            <!-- <td>{{ doctor }}</td> -->
+        <tbody>
+            <!-- <tr v-for="patient in patients">
+                <td>{{ patient.id }}</td>
+                <td>{{ patient.name }}</td>
+                <td>{{ patient.dept }}</td>
+                <td>{{ doctor }}</td> -->
+            <!-- </tr> -->
         </tbody>
     </table>
 </template>
@@ -25,25 +27,23 @@ export default {
     name: "PatientsTable",
     data() {
         return {
-            patients: [
-                {
-                    id: "",
-                    name: "",
-                    dept: "",
-                    // doctor: "",
-                },
-            ],
+            patients: {
+                id: "",
+                name: "",
+                dept: "",
+                // doctor: "",
+            },
         };
     },
     methods: {
         getPatients() {
             axios.get("api/data/getPatients").then((response) => {
                 response.data.forEach((element) => {
-                    this.patients.id = element;
+                    this.patients.id = element.id;
+                    this.patients.name = element.name;
+                    this.patients.dept = element.dept;
                 });
-                this.patients.id = response.data.id;
-                this.patients.name = patients.firstname + patients.lastname;
-                this.patients.dept = patients.dept;
+                console.log(this.patients);
             });
         },
     },

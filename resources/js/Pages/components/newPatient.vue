@@ -1,9 +1,32 @@
 <script>
+import axios from "axios";
+
 export default {
     name: "newPatient",
+    data() {
+        return {
+            formData: {
+                firstName: "",
+                lastName: "",
+                current_dept: "",
+            },
+        };
+    },
     methods: {
         close() {
             this.$emit("close");
+        },
+        addPatient() {
+            axios
+                .post("api/data/createPatient", this.formData)
+                .then((response) => {
+                    if (response.status == 200) {
+                        this.close();
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
         },
     },
 };
@@ -30,29 +53,47 @@ export default {
                     </button>
                 </header>
 
-                <section class="modal-body" id="modalDescription">
-                    <slot name="body">
-                        <div class="body-header">
-                            <h3>Please provide patient details</h3>
-                        </div>
-                        <div class="body-form">
-                            <input placeholder="Firstname" type="text" />
-                            <input placeholder="Lastname" type="text" />
-                            <select name="dept" id="dept">
-                                <option value="3">Radiology</option>
-                                <option value="4">Optical</option>
-                                <option value="5">General Treatment</option>
-                                <option value="6">Labs</option>
-                            </select>
-                        </div>
-                    </slot>
-                </section>
+                <form action="#">
+                    <section class="modal-body" id="modalDescription">
+                        <slot name="body">
+                            <div class="body-header">
+                                <h3>Please provide patient details</h3>
+                            </div>
+                            <div class="body-form">
+                                <input
+                                    v-model="formData.firstName"
+                                    placeholder="Firstname"
+                                    type="text"
+                                />
+                                <input
+                                    v-model="formData.lastName"
+                                    placeholder="Lastname"
+                                    type="text"
+                                />
+                                <select
+                                    v-model="formData.current_dept"
+                                    name="dept"
+                                    id="dept"
+                                >
+                                    <option value="2">Radiology</option>
+                                    <option value="5">Optical</option>
+                                    <option value="3">General Treatment</option>
+                                    <option value="4">Labs</option>
+                                </select>
+                            </div>
+                        </slot>
+                    </section>
 
-                <footer class="modal-footer">
-                    <button type="button" class="btn-sub">
-                        Checkin patient
-                    </button>
-                </footer>
+                    <footer class="modal-footer">
+                        <button
+                            v-on:click="addPatient()"
+                            type="submit"
+                            class="btn-sub"
+                        >
+                            Checkin patient
+                        </button>
+                    </footer>
+                </form>
             </div>
         </div>
     </transition>
@@ -72,9 +113,11 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 9;
 }
 
 .modal {
+    z-index: 10;
     border-radius: 15px;
     width: 40vw;
     height: 70vh;

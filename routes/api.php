@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\RequestsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,3 +24,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('auth/register',[AuthController::class,'createUser']);
 Route::post('auth/login',[AuthController::class,'loginUser']);
 Route::post('auth/logout',[AuthController::class,'logout']);
+
+Route::post('data/createPatient',[RequestsController::class,'createPatient']);
+Route::get('data/getPatients',[RequestsController::class,'index']);
